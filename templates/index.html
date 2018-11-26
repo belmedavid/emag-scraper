@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>eMAG-scrap</title>
+
+    <!-- Import Montserrat font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <!-- Normalize.css fixes lot of differences between browsers default styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"/>
+
+    <!-- project wide styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/site.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/background.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
+
+    <!-- page specific styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+    <!-- AJAX -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+<div id="body-wrapper">
+    <section>
+        <div class="card">
+            <p>Indítás:</p>
+            <form>
+
+                    <button class='btn btn-default' formaction="/start-scrap" target="_blank">
+                        Termékek kinyerése
+                    </button>
+
+            </form>
+
+
+        </div>
+
+        <h1 class="title text-center">eMAG eladott termékek</h1>
+        <div class="card">
+            <p>Sorbarendezés:</p>
+            <form label="order">
+                <select name="table_name">
+                    {% for table_name in table_names %}
+                        {% if table_name['table_name'] != 'checker' %}
+                            <option value="{{table_name['table_name']}}">{{table_name['table_name']}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <select name="order_by">
+                    <option value="product_name">Név</option>
+                    <option value="price">Ár</option>
+                    <option value="latest_buy">Vásárlás dátuma</option>
+                    <option value="quantity">Darab</option>
+                </select>
+                <select name="order_direction">
+                    <option value="asc">Növekvő sorrend</option>
+                    <option value="desc">Csökkenő sorrend</option>
+                </select>
+                <input class="commentButton" type="submit" value="Rendezés"
+                       formaction="/?{{ order_by }}&{{ order_direction }}">
+            </form>
+        </div>
+        <div class="card">
+            <p>Keresés:</p>
+            <form label="search">
+                <input name="search" type="text" placeholder="...">
+                <button class="commentButton" type="submit" onclick="location.href='/search?q=<{{ search }}'"
+                        value="search">Keresés
+                </button>
+
+            </form>
+        </div>
+        <div class="card">
+            Az alábbi termékek lettek eladva eMAGon:
+            <table>
+                <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Ár (HuF)</th>
+                    <th>Dátum</th>
+                    <th class="action-column">Darab</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in ordered_products %}
+                <tr>
+                    <td><a href="{{ product['living_link'] }}" target="_blank">{{ product['product_name'] }}</a>
+                    </td>
+                    <td class="text-right">{{ product['price'] }}</td>
+                    <td>{{ product['latest_buy'] }}</td>
+                    <td class="text-right">{{ product['quantity'] }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+    <footer>
+        <img src="/static/style/emag.png" width="60px" height="21px">
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
+
+
+</body>
+
+</html>
