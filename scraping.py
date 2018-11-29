@@ -3,6 +3,9 @@ from requests_html import AsyncHTMLSession
 import datetime
 import pyppeteer
 from pyppeteer import errors
+import OpenSSL
+import urllib3
+import requests
 
 
 async def scraping():
@@ -54,11 +57,10 @@ async def scraping():
             print(act_time, 'The recently bought list is empty!')
         req.close()
         await asession.close()
-    except (ConnectionError, pyppeteer.errors.NetworkError) as e:
-
-        print(e)
+    except (ConnectionError, pyppeteer.errors.NetworkError, pyppeteer.errors.PageError, pyppeteer.errors.TimeoutError, OpenSSL.SSL.SysCallError, urllib3.exceptions.MaxRetryError, requests.exceptions.SSLError) as e:
+        act_time = str(unix_time)[:19]
+        print(act_time, e)
         pass
-    except pyppeteer.errors.NetworkError:
-        print('exit')
-        scraping().close()
+
+
 

@@ -39,15 +39,9 @@
     <section>
         <div class="card">
             <p>Indítás:</p>
-            <form>
-
-                    <button class='btn btn-default' formaction="/start-scrap" target="_blank">
-                        Termékek kinyerése
-                    </button>
-
-            </form>
-
-
+            <button class='btn btn-default' onclick="location.href='/start-scrap'">
+                Termékek kinyerése
+            </button>
         </div>
 
         <h1 class="title text-center">eMAG eladott termékek</h1>
@@ -57,7 +51,7 @@
                 <select name="table_name">
                     {% for table_name in table_names %}
                         {% if table_name['table_name'] != 'checker' %}
-                            <option value="{{table_name['table_name']}}">{{table_name['table_name']}}</option>
+                            <option value="{{ table_name['table_name'] }}">{{ table_name['table_name'] }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>
@@ -98,13 +92,13 @@
                 </thead>
                 <tbody>
                 {% for product in ordered_products %}
-                <tr>
-                    <td><a href="{{ product['living_link'] }}" target="_blank">{{ product['product_name'] }}</a>
-                    </td>
-                    <td class="text-right">{{ product['price'] }}</td>
-                    <td>{{ product['latest_buy'] }}</td>
-                    <td class="text-right">{{ product['quantity'] }}</td>
-                </tr>
+                    <tr>
+                        <td><a href="{{ product['living_link'] }}" target="_blank">{{ product['product_name'] }}</a>
+                        </td>
+                        <td class="text-right">{{ product['price'] }}</td>
+                        <td>{{ product['latest_buy'] }}</td>
+                        <td class="text-right">{{ product['quantity'] }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
