@@ -1,1 +1,1 @@
-web: hypercorn server:app
+hypercorn server:app
