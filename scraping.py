@@ -6,6 +6,7 @@ from pyppeteer import errors
 import OpenSSL
 import urllib3
 import requests
+import socket
 
 
 async def scraping():
@@ -57,9 +58,10 @@ async def scraping():
             print(act_time, 'The recently bought list is empty!')
         req.close()
         await asession.close()
-    except (ConnectionError, pyppeteer.errors.NetworkError, pyppeteer.errors.PageError, pyppeteer.errors.TimeoutError, OpenSSL.SSL.SysCallError, urllib3.exceptions.MaxRetryError, requests.exceptions.SSLError) as e:
+    except (ConnectionError, pyppeteer.errors.NetworkError, pyppeteer.errors.PageError, pyppeteer.errors.TimeoutError, OpenSSL.SSL.SysCallError, urllib3.exceptions.MaxRetryError, requests.exceptions.SSLError, requests.exceptions.ConnectionError, urllib3.exceptions.MaxRetryError, urllib3.exceptions.NewConnectionError, socket.gaierror) as e:
         act_time = str(unix_time)[:19]
         print(act_time, e)
+
         pass
 
 
