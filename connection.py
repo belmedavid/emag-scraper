@@ -8,8 +8,6 @@ import urllib
 # Creates the cursor with RealDictCursor, thus it returns real dictionaries, where the column names are the keys.
 
 
-
-
 def open_database():
     try:
         urllib.parse.uses_netloc.append('postgres')
