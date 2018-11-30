@@ -1,37 +1,26 @@
 import os
 import psycopg2
 import psycopg2.extras
+import urllib
 
 
 # Creates a decorator to handle the database connection/cursor opening/closing.
 # Creates the cursor with RealDictCursor, thus it returns real dictionaries, where the column names are the keys.
 
 
-def get_connection_string():
-    # setup connection string
-    # to do this, please define these environment variables first
-    user_name = 'qjuotywqvbvzxx'  # os.environ.get('PSQL_USER_NAME')
-    password = '3529794bf5dbdd7394ee8dd9503f50e1449b292e916480b0b05520873492ddf7'  # os.environ.get('PSQL_PASSWORD')
-    host = 'ec2-54-247-119-167.eu-west-1.compute.amazonaws.com'  # os.environ.get('PSQL_HOST')
-    database_name = 'd4fu1h59kn1fem'  # os.environ.get('PSQL_DB_NAME')
-
-    env_variables_defined = user_name and password and host and database_name
-    if env_variables_defined:
-        # this string describes all info for psycopg2 to connect to the database
-        return 'postgresql://{user_name}:{password}@{host}/{database_name}'.format(
-            user_name=user_name,
-            password=password,
-            host=host,
-            database_name=database_name
-        )
-    else:
-        raise KeyError('Some necessary environment variable(s) are not defined')
 
 
 def open_database():
     try:
-        connection_string = get_connection_string()
-        connection = psycopg2.connect(connection_string)
+        urllib.parse.uses_netloc.append('postgres')
+        url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
+        connection = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
         connection.autocommit = True
     except psycopg2.DatabaseError as exception:
         print('Database connection problem')
