@@ -20,7 +20,7 @@ Jinja2==2.10
 lxml==4.2.5
 MarkupSafe==1.1.0
 multidict==4.4.2
-libssl-dev==1.1.0g
+libssl-dev==1.1.0
 parse==1.9.0
 psycopg2==2.7.6.1
 pyee==5.0.0
