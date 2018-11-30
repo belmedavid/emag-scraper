@@ -10,10 +10,10 @@ import psycopg2.extras
 def get_connection_string():
     # setup connection string
     # to do this, please define these environment variables first
-    user_name = os.environ.get('PSQL_USER_NAME')
-    password = os.environ.get('PSQL_PASSWORD')
-    host = os.environ.get('PSQL_HOST')
-    database_name = os.environ.get('PSQL_DB_NAME')
+    user_name = 'qjuotywqvbvzxx'  # os.environ.get('PSQL_USER_NAME')
+    password = '3529794bf5dbdd7394ee8dd9503f50e1449b292e916480b0b05520873492ddf7'  # os.environ.get('PSQL_PASSWORD')
+    host = 'ec2-54-247-119-167.eu-west-1.compute.amazonaws.com'  # os.environ.get('PSQL_HOST')
+    database_name = 'd4fu1h59kn1fem'  # os.environ.get('PSQL_DB_NAME')
 
     env_variables_defined = user_name and password and host and database_name
     if env_variables_defined:
@@ -48,4 +48,5 @@ def connection_handler(function):
         dict_cur.close()
         connection.close()
         return ret_value
+
     return wrapper
