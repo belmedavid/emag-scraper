@@ -1,1 +1,1 @@
-web: hypercorn server:app
+web: gunicorn --config gunicorn.py 'run:create_app()'
