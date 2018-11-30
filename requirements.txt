@@ -8,6 +8,7 @@ chardet==3.0.4
 Click==7.0
 cssselect==1.0.3
 fake-useragent==0.1.11
+gunicorn==19.9.0
 h11==0.8.1
 h2==3.0.1
 hpack==3.0.0
