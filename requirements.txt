@@ -17,7 +17,7 @@ hyperframe==5.1.0
 idna==2.7
 itsdangerous==1.1.0
 Jinja2==2.10
-lxml==4.2.5
+lxml==4.6.2
 MarkupSafe==1.1.0
 multidict==4.4.2
 parse==1.9.0
